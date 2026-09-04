@@ -20,6 +20,20 @@ export const metadata: Metadata = {
   title: "NoteHub",
   description:
     "A simple note-taking app where you can create, search and manage your notes.",
+  openGraph: {
+    title: "NoteHub",
+    description:
+      "A simple note-taking app where you can create, search and manage your notes.",
+    url: `https://notehub.com/notes`,
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NoteHub",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
