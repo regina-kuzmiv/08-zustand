@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import Link from "next/link";
 
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
@@ -18,7 +17,6 @@ import css from "./page.module.css";
 export default function Notes({ tag }: { tag: string | undefined }) {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const perPage = 12;
 
@@ -45,10 +43,6 @@ export default function Notes({ tag }: { tag: string | undefined }) {
     1000,
   );
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
@@ -62,25 +56,12 @@ export default function Notes({ tag }: { tag: string | undefined }) {
           />
         )}
 
-        <button
-          className={css.button}
-          onClick={() => {
-            setIsModalOpen(true);
-          }}
-        >
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
-        </button>
+        </Link>
       </header>
 
-      <main>
-        {isSuccess && notes.length > 0 && <NoteList notes={notes} />}
-
-        {isModalOpen && (
-          <Modal onClose={handleCloseModal}>
-            <NoteForm onClose={handleCloseModal} />
-          </Modal>
-        )}
-      </main>
+      <main>{isSuccess && notes.length > 0 && <NoteList notes={notes} />}</main>
     </div>
   );
 }
